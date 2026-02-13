@@ -110,4 +110,19 @@ class AudioManager {
   void setSfxVolume(double volume) {
     _sfxVolume = volume.clamp(0.0, 1.0);
   }
+
+  /// Toggle music on/off
+  void toggleMusic() {
+    _isMusicEnabled = !_isMusicEnabled;
+    if (_isMusicEnabled) {
+      resumeBackgroundMusic();
+    } else {
+      pauseBackgroundMusic();
+    }
+  }
+
+  /// Toggle sound effects on/off
+  void toggleSfx() {
+    _isSfxEnabled = !_isSfxEnabled;
+  }
 }
