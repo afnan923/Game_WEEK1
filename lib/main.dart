@@ -9,6 +9,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      title: 'Fruit Chatcher Game',
+      home: const GameScreen(),
+    );
+  }
+}
+
+class GameScreen extends StatelessWidget {
+  const GameScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Game akan ditampilkan di sini"),
+      ),
+    );
   }
 }
