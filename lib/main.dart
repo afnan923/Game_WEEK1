@@ -45,9 +45,18 @@ class _GameScreenState extends State<GameScreen> {
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                'Score: 0',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+              child: ValueListenableBuilder<int>(
+                valueListenable: counter,
+                builder: (context, score, child) {
+                  return Text(
+                    'Score: $score',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -58,11 +67,11 @@ class _GameScreenState extends State<GameScreen> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.music_note, color: Colors.black),
-                   onPressed: () {},
+                  onPressed: () {},
                 ),
                 IconButton(
                   icon: const Icon(Icons.volume_up, color: Colors.black),
-                   onPressed: () {},
+                  onPressed: () {},
                 ),
               ],
             ),
