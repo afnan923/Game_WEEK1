@@ -44,7 +44,10 @@ class _GameScreenState extends State<GameScreen> {
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(10),
               ),
-              
+              child: const Text(
+                'Score: 0',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
         ],
