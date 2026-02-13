@@ -125,4 +125,39 @@ class AudioManager {
   void toggleSfx() {
     _isSfxEnabled = !_isSfxEnabled;
   }
+
+  /// Enable music
+  void enableMusic() {
+    if (!_isMusicEnabled) {
+      _isMusicEnabled = true;
+      resumeBackgroundMusic();
+    }
+  }
+
+  /// Disable music
+  void disableMusic() {
+    if (_isMusicEnabled) {
+      _isMusicEnabled = false;
+      pauseBackgroundMusic();
+    }
+  }
+
+  /// Enable sound effects
+  void enableSfx() {
+    _isSfxEnabled = true;
+  }
+
+  /// Disable sound effects
+  void disableSfx() {
+    _isSfxEnabled = false;
+  }
+
+  /// Cleanup and dispose audio resources
+  void dispose() {
+    try {
+      FlameAudio.bgm.dispose();
+    } catch (e) {
+      print('Error disposing audio: $e');
+    }
+  }
 }
