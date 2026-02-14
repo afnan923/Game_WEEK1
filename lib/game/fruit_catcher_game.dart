@@ -6,6 +6,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_game_week1/game/components/basket.dart';
+import 'package:flutter_game_week1/game/components/fruit.dart';
 import 'package:flutter_game_week1/game/managers/audio_manager.dart';
 
 class FruitCatcherGame extends FlameGame
@@ -34,4 +35,49 @@ class FruitCatcherGame extends FlameGame
     AudioManager().playBackgroundMusic();
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+    // Spawn fruits
+    fruitSpawnTimer += dt;
+    if (fruitSpawnTimer >= fruitSpawnTimer) {
+      spawnFruit();
+      fruitSpawnTimer = 0;
+    }
+  }
+
+  void spawnFruit() {
+    final x = random.nextDouble() * size.x;
+    final fruit = Fruit(position: Vector2(x, -50));
+    add(fruit);
+  }
+
+  @override
+  void onPanUpdate(DragUpdateInfo info) {
+    basket.position.x += info.delta.global.x;
+    basket.position.x = basket.position.x.clamp(
+      basket.size.x / 2,
+      size.x - basket.size.x / 2,
+    );
+  }
+
+  void incrementScore() {
+    score++;
+    AudioManager().playSfx('collect.mp3');
+  }
+
+  void gameOver() {
+    AudioManager().playSfx('explosion.mp3');
+    pauseEngine();
+    // Show game over dialog
+  }
+
+  @override
+  void onRemove() {
+    AudioManager().stopBackgroundMusic();
+    super.onRemove();
+  }
+
+  @override
+  Color backgroundColor() => const Color(0xFF87CEEB); // Skyblue
 }
