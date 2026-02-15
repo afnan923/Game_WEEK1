@@ -8,6 +8,7 @@ class Basket extends PositionComponent with HasGameRef, CollisionCallbacks {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
     position = Vector2(gameRef.size.x / 2, gameRef.size.y - 100);
 
     anchor = Anchor.center;
@@ -17,23 +18,27 @@ class Basket extends PositionComponent with HasGameRef, CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
     final paint = Paint()
       ..color = Colors.brown
       ..style = PaintingStyle.fill;
-    // Draw basket
+
     final rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.x, size.y),
       const Radius.circular(10),
     );
     canvas.drawRRect(rect, paint);
-    // Draw handle
+
     final handlePaint = Paint()
-      ..color = Colors.brown[800]!
+      ..color = Colors.brown[600]!
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
+
     final handlePath = Path()
       ..moveTo(10, 0)
       ..quadraticBezierTo(size.x / 2, -20, size.x - 10, 0);
+
     canvas.drawPath(handlePath, handlePaint);
+    
   }
 }

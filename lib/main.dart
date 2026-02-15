@@ -5,9 +5,10 @@ import 'package:flutter_game_week1/game/managers/audio_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize audio
+
   await AudioManager().initialize();
-  runApp(const MyApp());
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,11 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Fruit Catcher Game',
-      home: GameScreen(),
-      debugShowCheckedModeBanner: false,
-    );
+    return MaterialApp(title: 'Flutter Game', home: GameScreen());
   }
 }
 
@@ -31,14 +28,15 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  final ValueNotifier<int> counter = ValueNotifier(1);
   late FruitCatcherGame game;
+
   @override
   void initState() {
     super.initState();
     game = FruitCatcherGame();
   }
 
+  @override
   void dispose() {
     game.onRemove();
     super.dispose();
@@ -54,17 +52,17 @@ class _GameScreenState extends State<GameScreen> {
             top: 50,
             left: 20,
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.black54,
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ValueListenableBuilder<int>(
-                valueListenable: counter,
+                valueListenable: game.scoreNotifier,
                 builder: (context, score, child) {
                   return Text(
                     'Score: $score',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -78,15 +76,16 @@ class _GameScreenState extends State<GameScreen> {
             top: 50,
             right: 20,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.music_note, color: Colors.black),
+                  icon: Icon(Icons.music_note),
                   onPressed: () {
                     AudioManager().toggleMusic();
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.volume_up, color: Colors.black),
+                  icon: Icon(Icons.volume_up),
                   onPressed: () {
                     AudioManager().toggleSfx();
                   },

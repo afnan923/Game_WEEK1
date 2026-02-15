@@ -9,14 +9,16 @@ import 'package:flutter_game_week1/game/components/basket.dart';
 import 'package:flutter_game_week1/game/components/fruit.dart';
 import 'package:flutter_game_week1/game/managers/audio_manager.dart';
 
-class FruitCatcherGame extends FlameGame
-    with PanDetector, HasCollisionDetection {
+class FruitCatcherGame extends FlameGame with PanDetector, HasCollisionDetection {
   late Basket basket;
   late TextComponent scoreText;
   final Random random = Random();
   double fruitSpawnTimer = 0;
+  final double fruitSpawnInterval = 1.5;
+
   final ValueNotifier<int> scoreNotifier = ValueNotifier<int>(0);
   int _score = 0;
+
   int get score => _score;
   set score(int value) {
     _score = value;
@@ -26,21 +28,22 @@ class FruitCatcherGame extends FlameGame
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    // Set background color
+
     camera.viewport = FixedResolutionViewport(resolution: Vector2(400, 800));
-    // Add basket
+
     basket = Basket();
     await add(basket);
-    // Play background music
+
+    await AudioManager().initialize();
     AudioManager().playBackgroundMusic();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    // Spawn fruits
+
     fruitSpawnTimer += dt;
-    if (fruitSpawnTimer >= fruitSpawnTimer) {
+    if (fruitSpawnTimer >= fruitSpawnInterval) {
       spawnFruit();
       fruitSpawnTimer = 0;
     }
@@ -55,10 +58,7 @@ class FruitCatcherGame extends FlameGame
   @override
   void onPanUpdate(DragUpdateInfo info) {
     basket.position.x += info.delta.global.x;
-    basket.position.x = basket.position.x.clamp(
-      basket.size.x / 2,
-      size.x - basket.size.x / 2,
-    );
+    basket.position.x = basket.position.x.clamp( basket.size.x / 2, basket.size.y / 2);
   }
 
   void incrementScore() {
@@ -67,17 +67,16 @@ class FruitCatcherGame extends FlameGame
   }
 
   void gameOver() {
-    AudioManager().playSfx('explosion.mp3');
+    AudioManager().playSfx('explode.mp3');
     pauseEngine();
-    // Show game over dialog
   }
 
   @override
   void onRemove() {
-    AudioManager().stopBackgroundMusic();
+    AudioManager().pauseBackgroundMusic();
     super.onRemove();
   }
 
   @override
-  Color backgroundColor() => const Color(0xFF87CEEB); // Skyblue
+  Color backgroundColor() => const Color(0xFF87CEEB); // Sky blue
 }
