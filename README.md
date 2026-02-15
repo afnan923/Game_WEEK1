@@ -1,16 +1,13 @@
-# flutter_game_week1
+# Preview
 
-A new Flutter project.
+## FRUIT CATCHER GAME
 
-## Getting Started
+## Demo Apk
 
-This project is a starting point for a Flutter application.
+https://github.com/user-attachments/assets/9e981cc4-10b0-4e9e-9e1e-a3d32a806f70
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Download 
+[Download](https://drive.google.com/drive/folders/1_D2F7B56LrlG8OUQNmsWK864VlekUKsl)
+
